@@ -8,6 +8,15 @@ test('logs the initialize event', () => {
   ]);
 });
 
+test('logs the clear event', () => {
+  const mock = new MockCanvasBuilder().initialize(400, 300).clear('green');
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'clear', style: 'green' },
+  ]);
+});
+
 test('logs the export event', () => {
   const mock = new MockCanvasBuilder().initialize(400, 300).export('foo.png');
 

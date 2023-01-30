@@ -11,3 +11,10 @@ test('renders an empty canvas', () => {
     .initialize(400, 300)
     .export(path.join('renders', 'empty.png'));
 });
+
+test('renders a cleared canvas', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .export(path.join('renders', 'clear.png'));
+});

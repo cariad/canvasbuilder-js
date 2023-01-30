@@ -1,4 +1,4 @@
 import ICanvasBuilder from './canvas-builder';
-import IPreparedCanvasBuilder from './prepared-canvas-builder';
+import IPreparedCanvasBuilder from './prepared';
 
 export { ICanvasBuilder, IPreparedCanvasBuilder };

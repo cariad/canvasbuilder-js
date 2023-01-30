@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import { Canvas, CanvasRenderingContext2D } from 'canvas';
 
-import IPreparedCanvasBuilder from './interfaces/prepared-canvas-builder';
+import { IPreparedCanvasBuilder } from './interfaces';
 
 /**
  * Prepared canvas builder.
@@ -15,6 +15,22 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
   constructor(canvas: Canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+  }
+
+  /**
+   * Clears the canvas.
+   *
+   * @param style Style to clear to
+   * @returns This canvas builder
+   */
+  public clear(
+    style: string | CanvasGradient | CanvasPattern,
+  ): IPreparedCanvasBuilder {
+    const currFillStyle = this.ctx.fillStyle;
+    this.ctx.fillStyle = style;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.fillStyle = currFillStyle;
+    return this;
   }
 
   /**

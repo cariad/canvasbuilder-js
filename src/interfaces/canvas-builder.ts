@@ -1,4 +1,4 @@
-import IPreparedCanvasBuilder from './prepared-canvas-builder';
+import IPreparedCanvasBuilder from './prepared';
 
 /**
  * Canvas builder.
