@@ -27,8 +27,10 @@
     "typescript": "^4.9.4"
   },
   "files": [
-    "dist/**/*",
-    "!dist/**/*.test.*"
+    "dist",
+    "!dist/**/*.test.*",
+    "interfaces",
+    "mock"
   ],
   "homepage": "https://github.com/cariad/canvasbuilder-js#readme",
   "keywords": [
