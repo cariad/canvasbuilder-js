@@ -1,3 +1,5 @@
+import { Image } from 'canvas';
+
 import IStroke from './stroke';
 
 /**
@@ -11,6 +13,27 @@ export default interface IPreparedCanvasBuilder {
    * @returns This canvas builder
    */
   clear(style: string | CanvasGradient | CanvasPattern): IPreparedCanvasBuilder;
+
+  /**
+   * Draws an image.
+   *
+   * @param image Image
+   * @param at Canvas position
+   */
+  drawImage(image: Image, at: [number, number]): IPreparedCanvasBuilder;
+
+  /**
+   * Draws an image.
+   *
+   * @param image Image
+   * @param at Canvas position
+   * @param source Subrectangle of the source image
+   */
+  drawImage(
+    image: Image,
+    at: [number, number],
+    source: [number, number, number, number],
+  ): IPreparedCanvasBuilder;
 
   /**
    * Exports the canvas to a PNG file.

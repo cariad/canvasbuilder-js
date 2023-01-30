@@ -1,10 +1,14 @@
 import path from 'path';
 
+import { loadImage } from 'canvas';
+
 import CanvasBuilder from '.';
 
 // These tests intentionally render to the local filesystem and have no
 // assertions. The intention is for developers to be alerted to a broken test
 // by noticing a rendered image has changed from the version in Git.
+
+const fox = path.join('test-data', 'pexels-erik-mclean-4157094.jpg');
 
 test('renders an empty canvas', () => {
   new CanvasBuilder()
@@ -68,4 +72,24 @@ test('renders a stroked rectangle with an overridden width', () => {
     .strokeRectangle([130, 80, 100, 100], { width: 12 })
     .strokeRectangle([170, 120, 100, 100])
     .export(path.join('renders', 'stroke-overridden-width.png'));
+});
+
+test('renders an image', async () => {
+  const image = await loadImage(fox);
+
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .drawImage(image, [25, 25])
+    .export(path.join('renders', 'image.png'));
+});
+
+test('renders a subrectangle of an image', async () => {
+  const image = await loadImage(fox);
+
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .drawImage(image, [150, 85], [150, 30, 100, 130])
+    .export(path.join('renders', 'image-subrectangle.png'));
 });

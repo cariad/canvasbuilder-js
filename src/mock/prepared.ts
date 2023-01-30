@@ -1,5 +1,8 @@
+import { Image } from 'canvas';
+
 import {
   ClearEvent,
+  DrawImageEvent,
   ExportEvent,
   Event,
   FillRectangleEvent,
@@ -31,6 +34,16 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
     style: string | CanvasGradient | CanvasPattern,
   ): MockPreparedCanvasBuilder {
     const event: ClearEvent = { function: 'clear', style };
+    this.events.push(event);
+    return this;
+  }
+
+  public drawImage(
+    image: Image,
+    at: [number, number],
+    source: [number, number, number, number] | undefined = undefined,
+  ): MockPreparedCanvasBuilder {
+    const event: DrawImageEvent = { function: 'drawImage', image, at, source };
     this.events.push(event);
     return this;
   }
