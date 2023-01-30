@@ -18,3 +18,22 @@ test('renders a cleared canvas', () => {
     .clear('white')
     .export(path.join('renders', 'clear.png'));
 });
+
+test('renders a filled rectangle with the default style', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .setFillStyle('black')
+    .fillRectangle([150, 100, 100, 100])
+    .export(path.join('renders', 'fill-default.png'));
+});
+
+test('renders a filled rectangle with an overridden style', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .setFillStyle('black')
+    .fillRectangle([150, 100, 100, 100], 'red')
+    .fillRectangle([175, 125, 50, 50])
+    .export(path.join('renders', 'fill-overridden.png'));
+});
