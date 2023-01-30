@@ -1,0 +1,71 @@
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@3.2.4
+
+jobs:
+  test:
+    docker:
+      - image: cimg/node:current
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "package.json" }}
+            - v1-
+
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+
+      - codecov/upload
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-{{ checksum "package.json" }}
+
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+
+    working_directory: ~/project
+
+  publish:
+    docker:
+      - image: cimg/node:current
+
+    steps:
+      - attach_workspace:
+          at: ~/project
+
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/project/.npmrc
+      - run: npm version "${CIRCLE_TAG}" --git-tag-version false
+      - run: npm publish
+
+    working_directory: ~/project
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+
+      - publish:
+          context:
+            - npm
+          requires:
+            - test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
