@@ -4,9 +4,12 @@ import {
   Event,
   FillRectangleEvent,
   SetFillStyleEvent,
+  SetStrokeStyleEvent,
+  SetLineWidthEvent,
+  StrokeRectangleEvent,
 } from './events';
 
-import { IPreparedCanvasBuilder } from '../interfaces';
+import { IPreparedCanvasBuilder, IStroke } from '../interfaces';
 
 /**
  * Mock canvas builder.
@@ -56,6 +59,34 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
     style: string | CanvasGradient | CanvasPattern,
   ): MockPreparedCanvasBuilder {
     const event: SetFillStyleEvent = { function: 'setFillStyle', style };
+    this.events.push(event);
+    return this;
+  }
+
+  public setLineWidth(width: number): MockPreparedCanvasBuilder {
+    const event: SetLineWidthEvent = { function: 'setLineWidth', width };
+    this.events.push(event);
+    return this;
+  }
+
+  public setStrokeStyle(
+    style: string | CanvasGradient | CanvasPattern,
+  ): MockPreparedCanvasBuilder {
+    const event: SetStrokeStyleEvent = { function: 'setStrokeStyle', style };
+    this.events.push(event);
+    return this;
+  }
+
+  strokeRectangle(
+    rectangle: [number, number, number, number],
+    style: IStroke | undefined = undefined,
+  ): MockPreparedCanvasBuilder {
+    const event: StrokeRectangleEvent = {
+      function: 'strokeRectangle',
+      rectangle,
+      style,
+    };
+
     this.events.push(event);
     return this;
   }

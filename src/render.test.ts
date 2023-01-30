@@ -37,3 +37,35 @@ test('renders a filled rectangle with an overridden style', () => {
     .fillRectangle([175, 125, 50, 50])
     .export(path.join('renders', 'fill-overridden.png'));
 });
+
+test('renders a stroked rectangle with the default style', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .setStrokeStyle('black')
+    .setLineWidth(6)
+    .strokeRectangle([150, 100, 100, 100])
+    .export(path.join('renders', 'stroke-default.png'));
+});
+
+test('renders a stroked rectangle with an overridden style', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .setStrokeStyle('black')
+    .setLineWidth(6)
+    .strokeRectangle([130, 80, 100, 100], { style: 'red' })
+    .strokeRectangle([170, 120, 100, 100])
+    .export(path.join('renders', 'stroke-overridden-style.png'));
+});
+
+test('renders a stroked rectangle with an overridden width', () => {
+  new CanvasBuilder()
+    .initialize(400, 300)
+    .clear('white')
+    .setStrokeStyle('black')
+    .setLineWidth(6)
+    .strokeRectangle([130, 80, 100, 100], { width: 12 })
+    .strokeRectangle([170, 120, 100, 100])
+    .export(path.join('renders', 'stroke-overridden-width.png'));
+});
