@@ -1,4 +1,4 @@
-import MockCanvasBuilder from './canvas-builder';
+import { MockCanvasBuilder } from '.';
 
 test('logs the initialize event', () => {
   const mock = new MockCanvasBuilder().initialize(400, 300);
