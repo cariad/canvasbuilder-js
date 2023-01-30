@@ -26,10 +26,7 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
   public clear(
     style: string | CanvasGradient | CanvasPattern,
   ): IPreparedCanvasBuilder {
-    const currFillStyle = this.ctx.fillStyle;
-    this.ctx.fillStyle = style;
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = currFillStyle;
+    this.fillRectangle([0, 0, this.canvas.width, this.canvas.height], style);
     return this;
   }
 
@@ -43,6 +40,37 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
     const out = fs.createWriteStream(path);
     const stream = this.canvas.createPNGStream();
     stream.pipe(out);
+    return this;
+  }
+
+  /**
+   * Fills a rectangle.
+   *
+   * @param rect X, Y, width and height to fill
+   * @param style Optional style to fill with
+   * @returns This canvas builder
+   */
+  public fillRectangle(
+    [x, y, w, h]: [number, number, number, number],
+    style: string | CanvasGradient | CanvasPattern | undefined = undefined,
+  ): PreparedCanvasBuilder {
+    const currFillStyle = this.ctx.fillStyle;
+    if (style !== undefined) this.ctx.fillStyle = style;
+    this.ctx.fillRect(x, y, w, h);
+    if (style !== undefined) this.ctx.fillStyle = currFillStyle;
+    return this;
+  }
+
+  /**
+   * Sets the style for subsequent fills.
+   *
+   * @param style Style
+   * @returns This canvas builder
+   */
+  public setFillStyle(
+    style: string | CanvasGradient | CanvasPattern,
+  ): PreparedCanvasBuilder {
+    this.ctx.fillStyle = style;
     return this;
   }
 }

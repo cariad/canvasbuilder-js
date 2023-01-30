@@ -1,4 +1,11 @@
-import { ClearEvent, ExportEvent, Event } from './events';
+import {
+  ClearEvent,
+  ExportEvent,
+  Event,
+  FillRectangleEvent,
+  SetFillStyleEvent,
+} from './events';
+
 import { IPreparedCanvasBuilder } from '../interfaces';
 
 /**
@@ -27,6 +34,28 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
 
   public export(to: string): MockPreparedCanvasBuilder {
     const event: ExportEvent = { function: 'export', to };
+    this.events.push(event);
+    return this;
+  }
+
+  public fillRectangle(
+    rectangle: [number, number, number, number],
+    style: string | CanvasGradient | CanvasPattern | undefined = undefined,
+  ): MockPreparedCanvasBuilder {
+    const event: FillRectangleEvent = {
+      function: 'fillRectangle',
+      rectangle,
+      style,
+    };
+
+    this.events.push(event);
+    return this;
+  }
+
+  public setFillStyle(
+    style: string | CanvasGradient | CanvasPattern,
+  ): MockPreparedCanvasBuilder {
+    const event: SetFillStyleEvent = { function: 'setFillStyle', style };
     this.events.push(event);
     return this;
   }

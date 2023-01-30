@@ -25,3 +25,36 @@ test('logs the export event', () => {
     { function: 'export', to: 'foo.png' },
   ]);
 });
+
+test('logs the fillRectangle (with default style) event', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .fillRectangle([0, 1, 2, 3]);
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'fillRectangle', rectangle: [0, 1, 2, 3], style: undefined },
+  ]);
+});
+
+test('logs the fillRectangle (with overridden style) event ', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .fillRectangle([0, 1, 2, 3], 'red');
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'fillRectangle', rectangle: [0, 1, 2, 3], style: 'red' },
+  ]);
+});
+
+test('logs the setFillStyle event', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .setFillStyle('purple');
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'setFillStyle', style: 'purple' },
+  ]);
+});

@@ -1,5 +1,5 @@
 import ICanvasBuilder from '../interfaces/canvas-builder';
-import MockPreparedCanvasBuilder from './prepared-canvas-builder';
+import MockPreparedCanvasBuilder from './prepared';
 
 import { InitializeEvent, Event } from './events';
 
