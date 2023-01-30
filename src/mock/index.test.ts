@@ -58,3 +58,49 @@ test('logs the setFillStyle event', () => {
     { function: 'setFillStyle', style: 'purple' },
   ]);
 });
+
+test('logs the setLineWidth event', () => {
+  const mock = new MockCanvasBuilder().initialize(400, 300).setLineWidth(36);
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'setLineWidth', width: 36 },
+  ]);
+});
+
+test('logs the setStrokeStyle event', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .setStrokeStyle('green');
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'setStrokeStyle', style: 'green' },
+  ]);
+});
+
+test('logs the strokeRectangle (with default style) event', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .strokeRectangle([0, 1, 2, 3]);
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    { function: 'strokeRectangle', rectangle: [0, 1, 2, 3], style: undefined },
+  ]);
+});
+
+test('logs the strokeRectangle (with overridden style) event ', () => {
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .strokeRectangle([0, 1, 2, 3], { style: 'red' });
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    {
+      function: 'strokeRectangle',
+      rectangle: [0, 1, 2, 3],
+      style: { style: 'red' },
+    },
+  ]);
+});

@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import { Canvas, CanvasRenderingContext2D } from 'canvas';
 
-import { IPreparedCanvasBuilder } from './interfaces';
+import { IPreparedCanvasBuilder, IStroke } from './interfaces';
 
 /**
  * Prepared canvas builder.
@@ -71,6 +71,55 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
     style: string | CanvasGradient | CanvasPattern,
   ): PreparedCanvasBuilder {
     this.ctx.fillStyle = style;
+    return this;
+  }
+
+  /**
+   * Sets the line width for subsequent strokes.
+   *
+   * @param width Width
+   * @returns This canvas builder
+   */
+  public setLineWidth(width: number): PreparedCanvasBuilder {
+    this.ctx.lineWidth = width;
+    return this;
+  }
+
+  /**
+   * Sets the style for subsequent strokes.
+   *
+   * @param style Style
+   * @returns This canvas builder
+   */
+  public setStrokeStyle(
+    style: string | CanvasGradient | CanvasPattern,
+  ): PreparedCanvasBuilder {
+    this.ctx.strokeStyle = style;
+    return this;
+  }
+
+  /**
+   * Strokes a rectangle.
+   *
+   * @param rectangle X, Y, width and height to stroke
+   * @param style Optional style to stroke with
+   * @returns This canvas builder
+   */
+  strokeRectangle(
+    [x, y, w, h]: [number, number, number, number],
+    style: IStroke | undefined = undefined,
+  ): PreparedCanvasBuilder {
+    const currStyle = this.ctx.strokeStyle;
+    const currWidth = this.ctx.lineWidth;
+
+    if (style?.style !== undefined) this.ctx.strokeStyle = style.style;
+    if (style?.width !== undefined) this.ctx.lineWidth = style.width;
+
+    this.ctx.strokeRect(x, y, w, h);
+
+    if (style?.style !== undefined) this.ctx.strokeStyle = currStyle;
+    if (style?.width !== undefined) this.ctx.lineWidth = currWidth;
+
     return this;
   }
 }

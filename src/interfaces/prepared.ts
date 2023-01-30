@@ -1,3 +1,5 @@
+import IStroke from './stroke';
+
 /**
  * Prepared canvas builder.
  */
@@ -35,7 +37,7 @@ export default interface IPreparedCanvasBuilder {
    */
   fillRectangle(
     rectangle: [number, number, number, number],
-    style: string | CanvasGradient | CanvasPattern | undefined,
+    style: string | CanvasGradient | CanvasPattern,
   ): IPreparedCanvasBuilder;
 
   /**
@@ -46,5 +48,45 @@ export default interface IPreparedCanvasBuilder {
    */
   setFillStyle(
     style: string | CanvasGradient | CanvasPattern,
+  ): IPreparedCanvasBuilder;
+
+  /**
+   * Sets the line width for subsequent strokes.
+   *
+   * @param width Width
+   * @returns This canvas builder
+   */
+  setLineWidth(width: number): IPreparedCanvasBuilder;
+
+  /**
+   * Sets the style for subsequent strokes.
+   *
+   * @param style Style
+   * @returns This canvas builder
+   */
+  setStrokeStyle(
+    style: string | CanvasGradient | CanvasPattern,
+  ): IPreparedCanvasBuilder;
+
+  /**
+   * Strokes a rectangle.
+   *
+   * @param rectangle X, Y, width and height to stroke
+   * @returns This canvas builder
+   */
+  strokeRectangle(
+    rectangle: [number, number, number, number],
+  ): IPreparedCanvasBuilder;
+
+  /**
+   * Strokes a rectangle.
+   *
+   * @param rectangle X, Y, width and height to stroke
+   * @param style Style to stroke with
+   * @returns This canvas builder
+   */
+  strokeRectangle(
+    rectangle: [number, number, number, number],
+    style: IStroke,
   ): IPreparedCanvasBuilder;
 }
