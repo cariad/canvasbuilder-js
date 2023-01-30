@@ -1,3 +1,5 @@
+import { Image } from 'canvas';
+
 import { IStroke } from '../interfaces';
 
 export interface Event {
@@ -9,6 +11,12 @@ export interface ClearEvent extends Event {
   style: string | CanvasGradient | CanvasPattern;
 }
 
+export interface DrawImageEvent extends Event {
+  function: 'drawImage';
+  image: Image;
+  at: [number, number];
+  source: [number, number, number, number] | undefined;
+}
 export interface ExportEvent extends Event {
   function: 'export';
   to: string;

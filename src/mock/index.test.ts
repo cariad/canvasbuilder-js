@@ -1,4 +1,10 @@
+import path from 'path';
+
+import { loadImage } from 'canvas';
+
 import { MockCanvasBuilder } from '.';
+
+const fox = path.join('test-data', 'pexels-erik-mclean-4157094.jpg');
 
 test('logs the initialize event', () => {
   const mock = new MockCanvasBuilder().initialize(400, 300);
@@ -14,6 +20,42 @@ test('logs the clear event', () => {
   expect(mock.events).toEqual([
     { function: 'initialize', width: 400, height: 300 },
     { function: 'clear', style: 'green' },
+  ]);
+});
+
+test('logs the drawImage event', async () => {
+  const image = await loadImage(fox);
+
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .drawImage(image, [1, 2]);
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    {
+      function: 'drawImage',
+      image,
+      at: [1, 2],
+      source: undefined,
+    },
+  ]);
+});
+
+test('logs the drawImage (with subrectangle) event', async () => {
+  const image = await loadImage(fox);
+
+  const mock = new MockCanvasBuilder()
+    .initialize(400, 300)
+    .drawImage(image, [1, 2], [3, 4, 5, 6]);
+
+  expect(mock.events).toEqual([
+    { function: 'initialize', width: 400, height: 300 },
+    {
+      function: 'drawImage',
+      image,
+      at: [1, 2],
+      source: [3, 4, 5, 6],
+    },
   ]);
 });
 
@@ -90,7 +132,7 @@ test('logs the strokeRectangle (with default style) event', () => {
   ]);
 });
 
-test('logs the strokeRectangle (with overridden style) event ', () => {
+test('logs the strokeRectangle (with overridden style) event', () => {
   const mock = new MockCanvasBuilder()
     .initialize(400, 300)
     .strokeRectangle([0, 1, 2, 3], { style: 'red' });

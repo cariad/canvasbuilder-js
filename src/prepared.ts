@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Canvas, CanvasRenderingContext2D } from 'canvas';
+import { Canvas, CanvasRenderingContext2D, Image } from 'canvas';
 
 import { IPreparedCanvasBuilder, IStroke } from './interfaces';
 
@@ -27,6 +27,27 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
     style: string | CanvasGradient | CanvasPattern,
   ): IPreparedCanvasBuilder {
     this.fillRectangle([0, 0, this.canvas.width, this.canvas.height], style);
+    return this;
+  }
+
+  /**
+   * Draws an image.
+   *
+   * @param image Image
+   * @param at Canvas position
+   * @param source Optional subrectangle of the source image
+   */
+  public drawImage(
+    image: Image,
+    [x, y]: [number, number],
+    source: [number, number, number, number] | undefined = undefined,
+  ): PreparedCanvasBuilder {
+    if (source === undefined) {
+      this.ctx.drawImage(image, x, y);
+    } else {
+      const [sx, sy, sw, sh] = source;
+      this.ctx.drawImage(image, sx, sy, sw, sh, x, y, sw, sh);
+    }
     return this;
   }
 
