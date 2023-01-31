@@ -3,16 +3,15 @@ import { Image } from 'canvas';
 import IStroke from './stroke';
 
 /**
- * Prepared canvas builder.
+ * Canvas painter.
  */
-export default interface IPreparedCanvasBuilder {
+export default interface ICanvasPainter {
   /**
    * Clears the canvas.
    *
    * @param style Style to clear to
-   * @returns This canvas builder
    */
-  clear(style: string | CanvasGradient | CanvasPattern): IPreparedCanvasBuilder;
+  clear(style: string | CanvasGradient | CanvasPattern): ICanvasPainter;
 
   /**
    * Draws an image.
@@ -20,7 +19,7 @@ export default interface IPreparedCanvasBuilder {
    * @param image Image
    * @param at Canvas position
    */
-  drawImage(image: Image, at: [number, number]): IPreparedCanvasBuilder;
+  drawImage(image: Image, at: [number, number]): ICanvasPainter;
 
   /**
    * Draws an image.
@@ -33,83 +32,71 @@ export default interface IPreparedCanvasBuilder {
     image: Image,
     at: [number, number],
     source: [number, number, number, number],
-  ): IPreparedCanvasBuilder;
+  ): ICanvasPainter;
 
   /**
    * Exports the canvas to a PNG file.
    *
    * @param to Path to export to
-   * @returns This canvas builder
    */
-  export(to: string): IPreparedCanvasBuilder;
+  export(to: string): ICanvasPainter;
 
   /**
    * Fills a rectangle.
    *
    * @param rect X, Y, width and height to fill
-   * @returns This canvas builder
    */
-  fillRectangle(rect: [number, number, number, number]): IPreparedCanvasBuilder;
+  fillRectangle(rect: [number, number, number, number]): ICanvasPainter;
 
   /**
    * Fills a rectangle.
    *
    * @param rectangle X, Y, width and height to fill
    * @param style Style to fill with
-   * @returns This canvas builder
    */
   fillRectangle(
     rectangle: [number, number, number, number],
     style: string | CanvasGradient | CanvasPattern,
-  ): IPreparedCanvasBuilder;
+  ): ICanvasPainter;
 
   /**
    * Sets the style for subsequent fills.
    *
    * @param style Style
-   * @returns This canvas builder
    */
-  setFillStyle(
-    style: string | CanvasGradient | CanvasPattern,
-  ): IPreparedCanvasBuilder;
+  setFillStyle(style: string | CanvasGradient | CanvasPattern): ICanvasPainter;
 
   /**
    * Sets the line width for subsequent strokes.
    *
    * @param width Width
-   * @returns This canvas builder
    */
-  setLineWidth(width: number): IPreparedCanvasBuilder;
+  setLineWidth(width: number): ICanvasPainter;
 
   /**
    * Sets the style for subsequent strokes.
    *
    * @param style Style
-   * @returns This canvas builder
    */
   setStrokeStyle(
     style: string | CanvasGradient | CanvasPattern,
-  ): IPreparedCanvasBuilder;
+  ): ICanvasPainter;
 
   /**
    * Strokes a rectangle.
    *
    * @param rectangle X, Y, width and height to stroke
-   * @returns This canvas builder
    */
-  strokeRectangle(
-    rectangle: [number, number, number, number],
-  ): IPreparedCanvasBuilder;
+  strokeRectangle(rectangle: [number, number, number, number]): ICanvasPainter;
 
   /**
    * Strokes a rectangle.
    *
    * @param rectangle X, Y, width and height to stroke
    * @param style Style to stroke with
-   * @returns This canvas builder
    */
   strokeRectangle(
     rectangle: [number, number, number, number],
     style: IStroke,
-  ): IPreparedCanvasBuilder;
+  ): ICanvasPainter;
 }

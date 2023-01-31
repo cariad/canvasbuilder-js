@@ -1,5 +1,5 @@
-import ICanvasBuilder from './canvas-builder';
-import IPreparedCanvasBuilder from './prepared';
+import ICanvasBuilder from './builder';
+import ICanvasPainter from './painter';
 import IStroke from './stroke';
 
-export { ICanvasBuilder, IPreparedCanvasBuilder, IStroke };
+export { ICanvasBuilder, ICanvasPainter, IStroke };
