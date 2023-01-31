@@ -2,12 +2,12 @@ import fs from 'fs';
 
 import { Canvas, CanvasRenderingContext2D, Image } from 'canvas';
 
-import { IPreparedCanvasBuilder, IStroke } from './interfaces';
+import { ICanvasPainter, IStroke } from './interfaces';
 
 /**
- * Prepared canvas builder.
+ * Canvas painter.
  */
-export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
+export default class CanvasPainter implements ICanvasPainter {
   private readonly canvas: Canvas;
 
   private readonly ctx: CanvasRenderingContext2D;
@@ -21,11 +21,8 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    * Clears the canvas.
    *
    * @param style Style to clear to
-   * @returns This canvas builder
    */
-  public clear(
-    style: string | CanvasGradient | CanvasPattern,
-  ): IPreparedCanvasBuilder {
+  public clear(style: string | CanvasGradient | CanvasPattern): CanvasPainter {
     this.fillRectangle([0, 0, this.canvas.width, this.canvas.height], style);
     return this;
   }
@@ -41,7 +38,7 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
     image: Image,
     [x, y]: [number, number],
     source: [number, number, number, number] | undefined = undefined,
-  ): PreparedCanvasBuilder {
+  ): CanvasPainter {
     if (source === undefined) {
       this.ctx.drawImage(image, x, y);
     } else {
@@ -55,9 +52,8 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    * Exports the canvas to a PNG file.
    *
    * @param path Path to export to
-   * @returns This canvas builder
    */
-  public export(path: string): PreparedCanvasBuilder {
+  public export(path: string): CanvasPainter {
     const out = fs.createWriteStream(path);
     const stream = this.canvas.createPNGStream();
     stream.pipe(out);
@@ -69,12 +65,11 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    *
    * @param rect X, Y, width and height to fill
    * @param style Optional style to fill with
-   * @returns This canvas builder
    */
   public fillRectangle(
     [x, y, w, h]: [number, number, number, number],
     style: string | CanvasGradient | CanvasPattern | undefined = undefined,
-  ): PreparedCanvasBuilder {
+  ): CanvasPainter {
     const currFillStyle = this.ctx.fillStyle;
     if (style !== undefined) this.ctx.fillStyle = style;
     this.ctx.fillRect(x, y, w, h);
@@ -86,11 +81,10 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    * Sets the style for subsequent fills.
    *
    * @param style Style
-   * @returns This canvas builder
    */
   public setFillStyle(
     style: string | CanvasGradient | CanvasPattern,
-  ): PreparedCanvasBuilder {
+  ): CanvasPainter {
     this.ctx.fillStyle = style;
     return this;
   }
@@ -99,9 +93,8 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    * Sets the line width for subsequent strokes.
    *
    * @param width Width
-   * @returns This canvas builder
    */
-  public setLineWidth(width: number): PreparedCanvasBuilder {
+  public setLineWidth(width: number): CanvasPainter {
     this.ctx.lineWidth = width;
     return this;
   }
@@ -110,11 +103,10 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    * Sets the style for subsequent strokes.
    *
    * @param style Style
-   * @returns This canvas builder
    */
   public setStrokeStyle(
     style: string | CanvasGradient | CanvasPattern,
-  ): PreparedCanvasBuilder {
+  ): CanvasPainter {
     this.ctx.strokeStyle = style;
     return this;
   }
@@ -124,12 +116,11 @@ export default class PreparedCanvasBuilder implements IPreparedCanvasBuilder {
    *
    * @param rectangle X, Y, width and height to stroke
    * @param style Optional style to stroke with
-   * @returns This canvas builder
    */
   strokeRectangle(
     [x, y, w, h]: [number, number, number, number],
     style: IStroke | undefined = undefined,
-  ): PreparedCanvasBuilder {
+  ): CanvasPainter {
     const currStyle = this.ctx.strokeStyle;
     const currWidth = this.ctx.lineWidth;
 

@@ -1,7 +1,7 @@
-import ICanvasBuilder from '../interfaces/canvas-builder';
-import MockPreparedCanvasBuilder from './prepared';
+import MockCanvasPainter from './painter';
 
 import { InitializeEvent, Event } from './events';
+import { ICanvasBuilder } from '../interfaces';
 
 /**
  * Mock canvas builder.
@@ -19,9 +19,9 @@ export default class MockCanvasBuilder implements ICanvasBuilder {
     this.events = [];
   }
 
-  public initialize(width: number, height: number): MockPreparedCanvasBuilder {
+  public initialize(width: number, height: number): MockCanvasPainter {
     const event: InitializeEvent = { function: 'initialize', height, width };
     this.events.push(event);
-    return new MockPreparedCanvasBuilder(this.events);
+    return new MockCanvasPainter(this.events);
   }
 }

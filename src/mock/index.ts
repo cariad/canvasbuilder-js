@@ -1,4 +1,4 @@
-import MockCanvasBuilder from './canvas-builder';
+import MockCanvasBuilder from './builder';
 
 import { Event, ExportEvent, InitializeEvent } from './events';
 

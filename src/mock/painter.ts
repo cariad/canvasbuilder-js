@@ -12,15 +12,15 @@ import {
   StrokeRectangleEvent,
 } from './events';
 
-import { IPreparedCanvasBuilder, IStroke } from '../interfaces';
+import { ICanvasPainter, IStroke } from '../interfaces';
 
 /**
- * Mock canvas builder.
+ * Mock canvas painter.
  *
  * Use this in your unit tests then interrogate the .events property to assert
  * your expected calls.
  */
-class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
+export default class MockCanvasPainter implements ICanvasPainter {
   /**
    * Observed events.
    */
@@ -32,7 +32,7 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
 
   public clear(
     style: string | CanvasGradient | CanvasPattern,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: ClearEvent = { function: 'clear', style };
     this.events.push(event);
     return this;
@@ -42,13 +42,13 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
     image: Image,
     at: [number, number],
     source: [number, number, number, number] | undefined = undefined,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: DrawImageEvent = { function: 'drawImage', image, at, source };
     this.events.push(event);
     return this;
   }
 
-  public export(to: string): MockPreparedCanvasBuilder {
+  public export(to: string): MockCanvasPainter {
     const event: ExportEvent = { function: 'export', to };
     this.events.push(event);
     return this;
@@ -57,7 +57,7 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
   public fillRectangle(
     rectangle: [number, number, number, number],
     style: string | CanvasGradient | CanvasPattern | undefined = undefined,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: FillRectangleEvent = {
       function: 'fillRectangle',
       rectangle,
@@ -70,13 +70,13 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
 
   public setFillStyle(
     style: string | CanvasGradient | CanvasPattern,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: SetFillStyleEvent = { function: 'setFillStyle', style };
     this.events.push(event);
     return this;
   }
 
-  public setLineWidth(width: number): MockPreparedCanvasBuilder {
+  public setLineWidth(width: number): MockCanvasPainter {
     const event: SetLineWidthEvent = { function: 'setLineWidth', width };
     this.events.push(event);
     return this;
@@ -84,7 +84,7 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
 
   public setStrokeStyle(
     style: string | CanvasGradient | CanvasPattern,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: SetStrokeStyleEvent = { function: 'setStrokeStyle', style };
     this.events.push(event);
     return this;
@@ -93,7 +93,7 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
   strokeRectangle(
     rectangle: [number, number, number, number],
     style: IStroke | undefined = undefined,
-  ): MockPreparedCanvasBuilder {
+  ): MockCanvasPainter {
     const event: StrokeRectangleEvent = {
       function: 'strokeRectangle',
       rectangle,
@@ -104,5 +104,3 @@ class MockPreparedCanvasBuilder implements IPreparedCanvasBuilder {
     return this;
   }
 }
-
-export default MockPreparedCanvasBuilder;

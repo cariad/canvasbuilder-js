@@ -1,4 +1,4 @@
-import IPreparedCanvasBuilder from './prepared';
+import ICanvasPainter from './painter';
 
 /**
  * Canvas builder.
@@ -9,7 +9,6 @@ export default interface ICanvasBuilder {
    *
    * @param width Canvas width
    * @param height Canvas height
-   * @returns This canvas builder
    */
-  initialize(width: number, height: number): IPreparedCanvasBuilder;
+  initialize(width: number, height: number): ICanvasPainter;
 }
