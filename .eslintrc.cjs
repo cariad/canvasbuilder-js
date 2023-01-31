@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/indent': 0,
     indent: 0,
+    'no-console': 0,
     'object-curly-newline': 0,
   },
 };

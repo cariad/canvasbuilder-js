@@ -4,6 +4,7 @@ import { Canvas, CanvasRenderingContext2D, Image } from 'canvas';
 
 import ICanvasPainter from './interfaces/painter';
 import IStroke from './interfaces/stroke';
+import IOptions from './interfaces/options';
 
 /**
  * Canvas painter.
@@ -17,9 +18,12 @@ export default class CanvasPainter implements ICanvasPainter {
 
   private fontSize = 10;
 
-  constructor(canvas: Canvas) {
+  private readonly options: IOptions;
+
+  constructor(canvas: Canvas, options: IOptions) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+    this.options = options;
   }
 
   /**
@@ -41,14 +45,27 @@ export default class CanvasPainter implements ICanvasPainter {
    */
   public drawImage(
     image: Image,
-    [x, y]: [number, number],
+    at: [number, number],
     source: [number, number, number, number] | undefined = undefined,
   ): CanvasPainter {
     if (source === undefined) {
-      this.ctx.drawImage(image, x, y);
+      if (this.options.debug) {
+        console.debug('canvasbuilder: Drawing image', image.src, 'at', at);
+      }
+      this.ctx.drawImage(image, at[0], at[1]);
     } else {
+      if (this.options.debug) {
+        console.debug(
+          'canvasbuilder: Drawing image',
+          image.src,
+          'subrectangle',
+          source,
+          'at',
+          at,
+        );
+      }
       const [sx, sy, sw, sh] = source;
-      this.ctx.drawImage(image, sx, sy, sw, sh, x, y, sw, sh);
+      this.ctx.drawImage(image, sx, sy, sw, sh, at[0], at[1], sw, sh);
     }
     return this;
   }
