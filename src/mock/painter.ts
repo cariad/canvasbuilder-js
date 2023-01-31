@@ -6,7 +6,10 @@ import {
   ExportEvent,
   Event,
   FillRectangleEvent,
+  FillTextEvent,
   SetFillStyleEvent,
+  SetFontFamilyEvent,
+  SetFontSizeEvent,
   SetStrokeStyleEvent,
   SetLineWidthEvent,
   StrokeRectangleEvent,
@@ -68,10 +71,28 @@ export default class MockCanvasPainter implements ICanvasPainter {
     return this;
   }
 
+  public fillText(text: string, at: [number, number]): MockCanvasPainter {
+    const event: FillTextEvent = { function: 'fillText', text, at };
+    this.events.push(event);
+    return this;
+  }
+
   public setFillStyle(
     style: string | CanvasGradient | CanvasPattern,
   ): MockCanvasPainter {
     const event: SetFillStyleEvent = { function: 'setFillStyle', style };
+    this.events.push(event);
+    return this;
+  }
+
+  public setFontFamily(family: string): MockCanvasPainter {
+    const event: SetFontFamilyEvent = { function: 'setFontFamily', family };
+    this.events.push(event);
+    return this;
+  }
+
+  public setFontSize(size: number): MockCanvasPainter {
+    const event: SetFontSizeEvent = { function: 'setFontSize', size };
     this.events.push(event);
     return this;
   }
