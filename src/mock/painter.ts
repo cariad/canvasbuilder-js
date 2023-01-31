@@ -47,7 +47,13 @@ export default class MockCanvasPainter implements ICanvasPainter {
     at: [number, number],
     source: [number, number, number, number] | undefined = undefined,
   ): MockCanvasPainter {
-    const event: DrawImageEvent = { function: 'drawImage', image, at, source };
+    const event: DrawImageEvent = {
+      function: 'drawImage',
+      at,
+      imageSource: image.src,
+      source,
+    };
+
     this.events.push(event);
     return this;
   }
