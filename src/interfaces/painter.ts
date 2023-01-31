@@ -1,11 +1,15 @@
 import { Image } from 'canvas';
 
+import { Event } from '../events';
+
 import IStroke from './stroke';
 
 /**
  * Canvas painter.
  */
 export default interface ICanvasPainter {
+  events: Event[];
+
   /**
    * Clears the canvas.
    *
@@ -19,7 +23,7 @@ export default interface ICanvasPainter {
    * @param image Image
    * @param at Canvas position
    */
-  drawImage(image: Image, at: [number, number]): ICanvasPainter;
+  drawImage(image: Promise<Image>, at: [number, number]): ICanvasPainter;
 
   /**
    * Draws an image.
@@ -29,7 +33,7 @@ export default interface ICanvasPainter {
    * @param source Subrectangle of the source image
    */
   drawImage(
-    image: Image,
+    image: Promise<Image>,
     at: [number, number],
     source: [number, number, number, number],
   ): ICanvasPainter;
@@ -39,7 +43,7 @@ export default interface ICanvasPainter {
    *
    * @param to Path to export to
    */
-  export(to: string): ICanvasPainter;
+  export(to: string): Promise<ICanvasPainter>;
 
   /**
    * Fills a rectangle.
