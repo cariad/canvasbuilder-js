@@ -2,7 +2,8 @@ import fs from 'fs';
 
 import { Canvas, CanvasRenderingContext2D, Image } from 'canvas';
 
-import { ICanvasPainter, IStroke } from './interfaces';
+import ICanvasPainter from './interfaces/painter';
+import IStroke from './interfaces/stroke';
 
 /**
  * Canvas painter.

@@ -1,47 +1,46 @@
-import { createCanvas, registerFont } from 'canvas';
+import CanvasBuilder from './builder';
+import ICanvasBuilder from './interfaces/builder';
+import ICanvasPainter from './interfaces/painter';
+import IFont from './interfaces/font';
+import IStroke from './interfaces/stroke';
+import MockCanvasBuilder from './mock/builder';
 
-import CanvasPainter from './painter';
+import {
+  Event,
+  ClearEvent,
+  DrawImageEvent,
+  ExportEvent,
+  FillRectangleEvent,
+  FillTextEvent,
+  RegisterFontEvent,
+  SetFillStyleEvent,
+  SetFontFamilyEvent,
+  SetFontSizeEvent,
+  SetLineWidthEvent,
+  SetSizeEvent,
+  SetStrokeStyleEvent,
+  StrokeRectangleEvent,
+} from './mock/events';
 
-import { ICanvasBuilder, ICanvasPainter, IFont } from './interfaces';
-
-/**
- * Canvas builder.
- */
-export default class CanvasBuilder implements ICanvasBuilder {
-  private height = 600;
-
-  private width = 800;
-
-  /**
-   * Builds the canvas to allow painting.
-   */
-  public build(): ICanvasPainter {
-    const canvas = createCanvas(this.width, this.height);
-    return new CanvasPainter(canvas);
-  }
-
-  /**
-   * Registers a font to use during painting.
-   *
-   * @param localPath Path to the font file
-   * @param style Style (CSS) properties
-   */
-  public registerFont(localPath: string, style: IFont): CanvasBuilder {
-    registerFont(localPath, style);
-    return this;
-  }
-
-  /**
-   * Sets the canvas size.
-   *
-   * @param width Width
-   * @param height Height
-   */
-  public setSize(width: number, height: number): CanvasBuilder {
-    // Don't create the canvas yet: font registration must happen first. Hold
-    // off for now then create the canvas just in time.
-    this.height = height;
-    this.width = width;
-    return this;
-  }
-}
+export {
+  CanvasBuilder,
+  ClearEvent,
+  DrawImageEvent,
+  Event,
+  ExportEvent,
+  FillRectangleEvent,
+  FillTextEvent,
+  ICanvasBuilder,
+  ICanvasPainter,
+  IFont,
+  IStroke,
+  MockCanvasBuilder,
+  RegisterFontEvent,
+  SetFillStyleEvent,
+  SetFontFamilyEvent,
+  SetFontSizeEvent,
+  SetLineWidthEvent,
+  SetSizeEvent,
+  SetStrokeStyleEvent,
+  StrokeRectangleEvent,
+};

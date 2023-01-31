@@ -1,5 +1,8 @@
 import { Image } from 'canvas';
 
+import ICanvasPainter from '../interfaces/painter';
+import IStroke from '../interfaces/stroke';
+
 import {
   ClearEvent,
   DrawImageEvent,
@@ -14,8 +17,6 @@ import {
   SetLineWidthEvent,
   StrokeRectangleEvent,
 } from './events';
-
-import { ICanvasPainter, IStroke } from '../interfaces';
 
 /**
  * Mock canvas painter.

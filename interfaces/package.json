@@ -1,5 +1,0 @@
-{
-  "main": "../dist/interfaces/index.js",
-  "name": "canvasbuilder/interfaces",
-  "private": true
-}

@@ -28,9 +28,7 @@
   },
   "files": [
     "dist",
-    "!dist/**/*.test.*",
-    "interfaces",
-    "mock"
+    "!dist/**/*.test.*"
   ],
   "homepage": "https://github.com/cariad/canvasbuilder-js#readme",
   "keywords": [
