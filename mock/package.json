@@ -1,5 +1,0 @@
-{
-  "main": "../dist/mock/index.js",
-  "name": "canvasbuilder/mock",
-  "private": true
-}

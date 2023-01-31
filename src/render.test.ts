@@ -2,7 +2,7 @@ import path from 'path';
 
 import { loadImage } from 'canvas';
 
-import CanvasBuilder from '.';
+import { CanvasBuilder } from '.';
 
 // These tests intentionally render to the local filesystem and have no
 // assertions. The intention is for developers to be alerted to a broken test

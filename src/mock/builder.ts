@@ -1,7 +1,8 @@
+import ICanvasBuilder from '../interfaces/builder';
+import IFont from '../interfaces/font';
 import MockCanvasPainter from './painter';
 
 import { Event, RegisterFontEvent, SetSizeEvent } from './events';
-import { ICanvasBuilder, IFont } from '../interfaces';
 
 /**
  * Mock canvas builder.

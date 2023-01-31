@@ -28,9 +28,7 @@
   },
   "files": [
     "dist",
-    "!dist/**/*.test.*",
-    "interfaces",
-    "mock"
+    "!dist/**/*.test.*"
   ],
   "homepage": "https://github.com/cariad/canvasbuilder-js#readme",
   "keywords": [
@@ -53,7 +51,6 @@
     "prettier": "npx prettier . --write",
     "test": "jest"
   },
-  "type": "module",
   "types": "dist/index.d.ts",
   "version": "0.0.0"
 }

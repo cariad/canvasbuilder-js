@@ -2,7 +2,7 @@ import path from 'path';
 
 import { loadImage } from 'canvas';
 
-import { MockCanvasBuilder } from '.';
+import MockCanvasBuilder from './builder';
 
 const fox = path.join('test-data', 'pexels-erik-mclean-4157094.jpg');
 

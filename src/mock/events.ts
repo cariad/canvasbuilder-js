@@ -1,6 +1,7 @@
 import { Image } from 'canvas';
 
-import { IFont, IStroke } from '../interfaces';
+import IFont from '../interfaces/font';
+import IStroke from '../interfaces/stroke';
 
 export interface Event {
   function: string;
