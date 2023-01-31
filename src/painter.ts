@@ -20,6 +20,8 @@ import {
   StrokeRectangleEvent,
 } from './events';
 
+type OptionalRectangle = [number, number, number, number] | undefined;
+
 /**
  * Canvas painter.
  */
@@ -220,36 +222,39 @@ export default class CanvasPainter implements ICanvasPainter {
   private promiseToDrawImage(
     image: Promise<Image>,
     at: [number, number],
-    source: [number, number, number, number] | undefined = undefined,
+    src: [number, number, number, number] | undefined = undefined,
   ): Promise<void> {
+    const atCopy: [number, number] = [...at];
+    const srcCopy: OptionalRectangle = src === undefined ? undefined : [...src];
+
     return image.then((i) => {
-      if (source === undefined) {
+      if (srcCopy === undefined) {
         if (this.options.debug) {
-          console.debug('canvasbuilder: Drawing image', i.src, 'at', at);
+          console.debug('canvasbuilder: Drawing image', i.src, 'at', atCopy);
         }
 
-        this.ctx.drawImage(i, at[0], at[1]);
+        this.ctx.drawImage(i, atCopy[0], atCopy[1]);
       } else {
         if (this.options.debug) {
           console.debug(
             'canvasbuilder: Drawing image',
             i.src,
             'subrectangle',
-            source,
+            srcCopy,
             'at',
-            at,
+            atCopy,
           );
         }
 
-        const [sx, sy, sw, sh] = source;
-        this.ctx.drawImage(i, sx, sy, sw, sh, at[0], at[1], sw, sh);
+        const [sx, sy, sw, sh] = srcCopy;
+        this.ctx.drawImage(i, sx, sy, sw, sh, atCopy[0], atCopy[1], sw, sh);
       }
 
       const event: DrawImageEvent = {
         function: 'drawImage',
-        at,
+        at: atCopy,
         image: i.src,
-        source,
+        source: srcCopy,
       };
 
       this.events.push(event);
@@ -276,8 +281,10 @@ export default class CanvasPainter implements ICanvasPainter {
     rectangle: [number, number, number, number],
     style: string | CanvasGradient | CanvasPattern | undefined = undefined,
   ): Promise<void> {
+    const rectangleCopy: [number, number, number, number] = [...rectangle];
+
     return new Promise<void>((resolve) => {
-      const [x, y, w, h] = rectangle;
+      const [x, y, w, h] = rectangleCopy;
 
       const currFillStyle = this.ctx.fillStyle;
       if (style !== undefined) this.ctx.fillStyle = style;
@@ -286,7 +293,7 @@ export default class CanvasPainter implements ICanvasPainter {
 
       const event: FillRectangleEvent = {
         function: 'fillRectangle',
-        rectangle,
+        rectangle: rectangleCopy,
         style,
       };
 
@@ -297,10 +304,12 @@ export default class CanvasPainter implements ICanvasPainter {
   }
 
   private promiseToFillText(text: string, at: [number, number]): Promise<void> {
-    return new Promise<void>((resolve) => {
-      this.ctx.fillText(text, at[0], at[1]);
+    const atCopy: [number, number] = [...at];
 
-      const event: FillTextEvent = { function: 'fillText', text, at };
+    return new Promise<void>((resolve) => {
+      this.ctx.fillText(text, atCopy[0], atCopy[1]);
+
+      const event: FillTextEvent = { function: 'fillText', text, at: atCopy };
       this.events.push(event);
 
       resolve();
@@ -372,8 +381,10 @@ export default class CanvasPainter implements ICanvasPainter {
     rectangle: [number, number, number, number],
     style: IStroke | undefined = undefined,
   ): Promise<void> {
+    const rectangleCopy: [number, number, number, number] = [...rectangle];
+
     return new Promise<void>((resolve) => {
-      const [x, y, w, h] = rectangle;
+      const [x, y, w, h] = rectangleCopy;
 
       const currStyle = this.ctx.strokeStyle;
       const currWidth = this.ctx.lineWidth;
@@ -388,7 +399,7 @@ export default class CanvasPainter implements ICanvasPainter {
 
       const event: StrokeRectangleEvent = {
         function: 'strokeRectangle',
-        rectangle,
+        rectangle: rectangleCopy,
         style,
       };
 
