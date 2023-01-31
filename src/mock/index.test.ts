@@ -18,8 +18,8 @@ test('logs the drawImage event', async () => {
   expect(mock.events).toEqual([
     {
       function: 'drawImage',
-      image,
       at: [1, 2],
+      imageSource: fox,
       source: undefined,
     },
   ]);
@@ -35,8 +35,8 @@ test('logs the drawImage (with subrectangle) event', async () => {
   expect(mock.events).toEqual([
     {
       function: 'drawImage',
-      image,
       at: [1, 2],
+      imageSource: fox,
       source: [3, 4, 5, 6],
     },
   ]);

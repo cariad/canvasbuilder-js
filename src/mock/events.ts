@@ -1,5 +1,3 @@
-import { Image } from 'canvas';
-
 import IFont from '../interfaces/font';
 import IStroke from '../interfaces/stroke';
 
@@ -14,8 +12,8 @@ export interface ClearEvent extends Event {
 
 export interface DrawImageEvent extends Event {
   function: 'drawImage';
-  image: Image;
   at: [number, number];
+  imageSource: string | Buffer;
   source: [number, number, number, number] | undefined;
 }
 export interface ExportEvent extends Event {
