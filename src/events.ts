@@ -1,19 +1,14 @@
-import IFont from '../interfaces/font';
-import IStroke from '../interfaces/stroke';
+import IFont from './interfaces/font';
+import IStroke from './interfaces/stroke';
 
 export interface Event {
   function: string;
 }
 
-export interface ClearEvent extends Event {
-  function: 'clear';
-  style: string | CanvasGradient | CanvasPattern;
-}
-
 export interface DrawImageEvent extends Event {
   function: 'drawImage';
   at: [number, number];
-  imageSource: string | Buffer;
+  image: string | Buffer;
   source: [number, number, number, number] | undefined;
 }
 export interface ExportEvent extends Event {
@@ -29,13 +24,13 @@ export interface FillRectangleEvent extends Event {
 
 export interface FillTextEvent extends Event {
   function: 'fillText';
-  text: string;
   at: [number, number];
+  text: string;
 }
 
 export interface RegisterFontEvent extends Event {
   function: 'registerFont';
-  localPath: string;
+  path: string;
   style: IFont;
 }
 
