@@ -1,6 +1,6 @@
 import { Image } from 'canvas';
 
-import { IStroke } from '../interfaces';
+import { IFont, IStroke } from '../interfaces';
 
 export interface Event {
   function: string;
@@ -28,10 +28,16 @@ export interface FillRectangleEvent extends Event {
   style: string | CanvasGradient | CanvasPattern | undefined;
 }
 
-export interface InitializeEvent extends Event {
-  function: 'initialize';
-  height: number;
-  width: number;
+export interface FillTextEvent extends Event {
+  function: 'fillText';
+  text: string;
+  at: [number, number];
+}
+
+export interface RegisterFontEvent extends Event {
+  function: 'registerFont';
+  localPath: string;
+  style: IFont;
 }
 
 export interface SetFillStyleEvent extends Event {
@@ -39,8 +45,24 @@ export interface SetFillStyleEvent extends Event {
   style: string | CanvasGradient | CanvasPattern;
 }
 
+export interface SetFontFamilyEvent extends Event {
+  function: 'setFontFamily';
+  family: string;
+}
+
+export interface SetFontSizeEvent extends Event {
+  function: 'setFontSize';
+  size: number;
+}
+
 export interface SetLineWidthEvent extends Event {
   function: 'setLineWidth';
+  width: number;
+}
+
+export interface SetSizeEvent extends Event {
+  function: 'setSize';
+  height: number;
   width: number;
 }
 

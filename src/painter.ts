@@ -12,6 +12,10 @@ export default class CanvasPainter implements ICanvasPainter {
 
   private readonly ctx: CanvasRenderingContext2D;
 
+  private fontFamily = 'sans-serif';
+
+  private fontSize = 10;
+
   constructor(canvas: Canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
@@ -78,6 +82,17 @@ export default class CanvasPainter implements ICanvasPainter {
   }
 
   /**
+   * Draws filled text.
+   *
+   * @param text Text
+   * @param at Position
+   */
+  public fillText(text: string, at: [number, number]): CanvasPainter {
+    this.ctx.fillText(text, at[0], at[1]);
+    return this;
+  }
+
+  /**
    * Sets the style for subsequent fills.
    *
    * @param style Style
@@ -86,6 +101,28 @@ export default class CanvasPainter implements ICanvasPainter {
     style: string | CanvasGradient | CanvasPattern,
   ): CanvasPainter {
     this.ctx.fillStyle = style;
+    return this;
+  }
+
+  /**
+   * Sets the font family for subsequent text drawing.
+   *
+   * @param family Font family
+   */
+  public setFontFamily(family: string): ICanvasPainter {
+    this.fontFamily = family;
+    this.updateFont();
+    return this;
+  }
+
+  /**
+   * Sets the font size for subsequent text drawing.
+   *
+   * @param size Size in pixels
+   */
+  public setFontSize(size: number): ICanvasPainter {
+    this.fontSize = size;
+    this.updateFont();
     return this;
   }
 
@@ -117,7 +154,7 @@ export default class CanvasPainter implements ICanvasPainter {
    * @param rectangle X, Y, width and height to stroke
    * @param style Optional style to stroke with
    */
-  strokeRectangle(
+  public strokeRectangle(
     [x, y, w, h]: [number, number, number, number],
     style: IStroke | undefined = undefined,
   ): CanvasPainter {
@@ -133,5 +170,9 @@ export default class CanvasPainter implements ICanvasPainter {
     if (style?.width !== undefined) this.ctx.lineWidth = currWidth;
 
     return this;
+  }
+
+  private updateFont(): void {
+    this.ctx.font = `${this.fontSize}px "${this.fontFamily}"`;
   }
 }

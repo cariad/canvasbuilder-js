@@ -1,7 +1,7 @@
 import MockCanvasPainter from './painter';
 
-import { InitializeEvent, Event } from './events';
-import { ICanvasBuilder } from '../interfaces';
+import { Event, RegisterFontEvent, SetSizeEvent } from './events';
+import { ICanvasBuilder, IFont } from '../interfaces';
 
 /**
  * Mock canvas builder.
@@ -19,9 +19,24 @@ export default class MockCanvasBuilder implements ICanvasBuilder {
     this.events = [];
   }
 
-  public initialize(width: number, height: number): MockCanvasPainter {
-    const event: InitializeEvent = { function: 'initialize', height, width };
-    this.events.push(event);
+  public build(): MockCanvasPainter {
     return new MockCanvasPainter(this.events);
+  }
+
+  public registerFont(localPath: string, style: IFont): MockCanvasBuilder {
+    const event: RegisterFontEvent = {
+      function: 'registerFont',
+      localPath,
+      style,
+    };
+
+    this.events.push(event);
+    return this;
+  }
+
+  public setSize(width: number, height: number): MockCanvasBuilder {
+    const event: SetSizeEvent = { function: 'setSize', height, width };
+    this.events.push(event);
+    return this;
   }
 }

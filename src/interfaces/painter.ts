@@ -60,11 +60,33 @@ export default interface ICanvasPainter {
   ): ICanvasPainter;
 
   /**
+   * Draws filled text.
+   *
+   * @param text Text
+   * @param at Position
+   */
+  fillText(text: string, at: [number, number]): ICanvasPainter;
+
+  /**
    * Sets the style for subsequent fills.
    *
    * @param style Style
    */
   setFillStyle(style: string | CanvasGradient | CanvasPattern): ICanvasPainter;
+
+  /**
+   * Sets the font family for subsequent text drawing.
+   *
+   * @param family Font family
+   */
+  setFontFamily(family: string): ICanvasPainter;
+
+  /**
+   * Sets the font size for subsequent text drawing.
+   *
+   * @param size Size in pixels
+   */
+  setFontSize(size: number): ICanvasPainter;
 
   /**
    * Sets the line width for subsequent strokes.

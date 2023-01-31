@@ -9,23 +9,27 @@ import CanvasBuilder from '.';
 // by noticing a rendered image has changed from the version in Git.
 
 const fox = path.join('test-data', 'pexels-erik-mclean-4157094.jpg');
+const rainbow = path.join('test-data', 'Rainbow2000.ttf');
 
 test('renders an empty canvas', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .export(path.join('renders', 'empty.png'));
 });
 
 test('renders a cleared canvas', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .export(path.join('renders', 'clear.png'));
 });
 
 test('renders a filled rectangle with the default style', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .setFillStyle('black')
     .fillRectangle([150, 100, 100, 100])
@@ -34,7 +38,8 @@ test('renders a filled rectangle with the default style', () => {
 
 test('renders a filled rectangle with an overridden style', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .setFillStyle('black')
     .fillRectangle([150, 100, 100, 100], 'red')
@@ -44,7 +49,8 @@ test('renders a filled rectangle with an overridden style', () => {
 
 test('renders a stroked rectangle with the default style', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -54,7 +60,8 @@ test('renders a stroked rectangle with the default style', () => {
 
 test('renders a stroked rectangle with an overridden style', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -65,7 +72,8 @@ test('renders a stroked rectangle with an overridden style', () => {
 
 test('renders a stroked rectangle with an overridden width', () => {
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -78,7 +86,8 @@ test('renders an image', async () => {
   const image = await loadImage(fox);
 
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .drawImage(image, [25, 25])
     .export(path.join('renders', 'image.png'));
@@ -88,8 +97,21 @@ test('renders a subrectangle of an image', async () => {
   const image = await loadImage(fox);
 
   new CanvasBuilder()
-    .initialize(400, 300)
+    .setSize(400, 300)
+    .build()
     .clear('white')
     .drawImage(image, [150, 85], [150, 30, 100, 130])
     .export(path.join('renders', 'image-subrectangle.png'));
+});
+
+test('renders filled text', () => {
+  new CanvasBuilder()
+    .registerFont(rainbow, { family: 'Rainbow' })
+    .setSize(400, 300)
+    .build()
+    .clear('white')
+    .setFontFamily('Rainbow')
+    .setFontSize(65)
+    .fillText("Don't Panic", [25, 170])
+    .export(path.join('renders', 'fill-text.png'));
 });
