@@ -2,6 +2,7 @@ import CanvasBuilder from './builder';
 import ICanvasBuilder from './interfaces/builder';
 import ICanvasPainter from './interfaces/painter';
 import IFont from './interfaces/font';
+import IOptions from './interfaces/options';
 import IStroke from './interfaces/stroke';
 import MockCanvasBuilder from './mock/builder';
 
@@ -33,6 +34,7 @@ export {
   ICanvasBuilder,
   ICanvasPainter,
   IFont,
+  IOptions,
   IStroke,
   MockCanvasBuilder,
   RegisterFontEvent,

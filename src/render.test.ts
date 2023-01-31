@@ -85,7 +85,7 @@ test('renders a stroked rectangle with an overridden width', () => {
 test('renders an image', async () => {
   const image = await loadImage(fox);
 
-  new CanvasBuilder()
+  new CanvasBuilder({ debug: true })
     .setSize(400, 300)
     .build()
     .clear('white')
@@ -96,7 +96,7 @@ test('renders an image', async () => {
 test('renders a subrectangle of an image', async () => {
   const image = await loadImage(fox);
 
-  new CanvasBuilder()
+  new CanvasBuilder({ debug: true })
     .setSize(400, 300)
     .build()
     .clear('white')
