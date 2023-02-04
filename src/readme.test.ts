@@ -14,7 +14,7 @@ test('renders some text', async () => {
     .export(to);
 
   expect(builder.events).toEqual([
-    { function: 'setSize', height: 400, width: 300 },
+    { function: 'setSize', height: 300, width: 400 },
     {
       function: 'fillRectangle',
       rectangle: [0, 0, 400, 300],
