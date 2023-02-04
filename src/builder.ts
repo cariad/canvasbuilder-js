@@ -28,7 +28,7 @@ export default class CanvasBuilder implements ICanvasBuilder {
    *
    * @param options Optional options.
    */
-  constructor(options: IOptions | undefined = undefined) {
+  constructor(options?: IOptions) {
     this.events = [];
     this.height = 600;
     this.options = options ?? { debug: false };
@@ -38,7 +38,7 @@ export default class CanvasBuilder implements ICanvasBuilder {
   /**
    * Builds the canvas to allow painting.
    */
-  public build(): ICanvasPainter {
+  public beginPainting(): ICanvasPainter {
     return new CanvasPainter(
       this.events,
       this.height,
