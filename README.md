@@ -66,14 +66,14 @@ To prepare a canvas, create a new `CanvasBuilder` then optionally call:
 
   ```javascript
   const builder = new CanvasBuilder()
+    // Register 'Rainbow2000.ttf' as 'Rainbow'
     .registerFont('Rainbow2000.ttf', { family: 'Rainbow' });
   ```
 
 - `setSize(width, height)` sets the width and height of the canvas.
 
   ```javascript
-  const builder = new CanvasBuilder()
-    .setSize(1024, 768);
+  const builder = new CanvasBuilder().setSize(1024, 768);
   ```
 
 To begin painting on the canvas, call `beginPainting()`.
@@ -95,9 +95,7 @@ To paint on a prepared canvas call:
 
   const image = loadImage('foo.jpg');
 
-  const builder = new CanvasBuilder()
-    .beginPainting()
-    .drawImage(image, [0, 0]);
+  const builder = new CanvasBuilder().beginPainting().drawImage(image, [0, 0]);
   ```
 
 - `drawImage(image, at, source)` draws a subrectangle of an image at the given coordinates. The `source` is an array describing the subrectangle's _x_, _y_, width and height.
