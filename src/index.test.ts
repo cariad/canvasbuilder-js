@@ -15,7 +15,7 @@ test('renders an empty canvas', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(width, height)
-    .build()
+    .beginPainting()
     .export(to);
 
   expect(painter.events).toEqual([
@@ -29,7 +29,7 @@ test('renders a cleared canvas', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .export(to);
 
@@ -49,7 +49,7 @@ test('renders a filled rectangle with the default style', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setFillStyle('black')
     .fillRectangle([150, 100, 100, 100])
@@ -79,7 +79,7 @@ test('renders a filled rectangle with an overridden style', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setFillStyle('black')
     .fillRectangle([150, 100, 100, 100], 'red')
@@ -115,7 +115,7 @@ test('renders a stroked rectangle with the default style', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -141,7 +141,7 @@ test('renders a stroked rectangle with an overridden style', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -173,7 +173,7 @@ test('renders a stroked rectangle with an overridden width', async () => {
 
   const painter = await new CanvasBuilder()
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setStrokeStyle('black')
     .setLineWidth(6)
@@ -206,7 +206,7 @@ test('renders an image', async () => {
 
   const painter = await new CanvasBuilder({ debug: true })
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .drawImage(image, [25, 25])
     .export(to);
@@ -233,7 +233,7 @@ test('renders a subrectangle of an image', async () => {
 
   const painter = await new CanvasBuilder({ debug: true })
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .drawImage(image, [150, 85], [150, 30, 100, 130])
     .export(to);
@@ -261,7 +261,7 @@ test('renders filled text', async () => {
   const painter = await new CanvasBuilder()
     .registerFont(rainbow, { family: 'Rainbow' })
     .setSize(400, 300)
-    .build()
+    .beginPainting()
     .clear('white')
     .setFontFamily('Rainbow')
     .setFontSize(65)

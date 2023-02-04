@@ -8,7 +8,7 @@ export default interface ICanvasBuilder {
   /**
    * Builds the canvas to allow painting.
    */
-  build(): ICanvasPainter;
+  beginPainting(): ICanvasPainter;
 
   /**
    * Registers a font to use during painting.
