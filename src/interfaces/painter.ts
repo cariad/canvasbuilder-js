@@ -30,7 +30,7 @@ export default interface ICanvasPainter {
    *
    * @param image Image
    * @param at Canvas position
-   * @param source Subrectangle of the source image
+   * @param source Source image subrectangle
    */
   drawImage(
     image: Promise<Image>,
