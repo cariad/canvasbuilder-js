@@ -19,6 +19,8 @@ module.exports = {
   root: true,
   rules: {
     '@typescript-eslint/indent': 0,
+    'function-paren-newline': 0,
+    'implicit-arrow-linebreak': 0,
     indent: 0,
     'no-console': 0,
     'object-curly-newline': 0,
